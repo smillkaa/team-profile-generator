@@ -2,7 +2,6 @@
 const inquirer = require('inquirer')
 const fs = require('fs')
 const generatePage = require('./utils/generatePage')
-const { nextTick } = require('process')
 
 // variables as objects to pass into inquirer
 const name =
@@ -42,7 +41,7 @@ const nextAction =
 const questions = [
     {
         type: 'input',
-        name: 'name',
+        name: 'managerName',
         message: 'What is the name of your team manager?',
     },
 
@@ -103,7 +102,7 @@ function getAnswers(answer) {
                 })
                 break
             case 'Finish building the team':
-                const writeFile = data => {
+                const writeToFile = data => {
                     fs.writeFile('./dist/index.html', data, err => {
                         if (err) {
                             console.log(err)
@@ -113,8 +112,8 @@ function getAnswers(answer) {
                         }
                     })
                 }
-                    
+                    writeToFile()
             }
 }
 
-initialQuestion();
+initialQuestion()
