@@ -4,7 +4,7 @@ const fs = require('fs')
 const generatePage = require('./utils/generatePage')
 const { nextTick } = require('process')
 
-
+// variables as objects to pass into inquirer
 const name =
 {
     type: 'input',
@@ -58,11 +58,12 @@ const questions = [
     nextAction
 ]
 
-
+// function to start inquirer
 function getAnswers() {
     return inquirer.prompt(questions).then(answer => {
         switch(answer.addOrFinish) {
 
+            // checks what choice was selected
             case 'Add an engineer':
                 inquirer.prompt([
                     name,
@@ -93,8 +94,7 @@ function getAnswers() {
                 ])
                 break
             case 'Finish building the team':
-                // fs.writeFile()
-                    console.log(answer.officeNum)
+                    console.log("File created!")
         }
     })
 }
