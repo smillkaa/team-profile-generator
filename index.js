@@ -58,9 +58,15 @@ const questions = [
     nextAction
 ]
 
+
+function initialQuestion() {
+    return inquirer.prompt(questions).then(answers => {
+        getAnswers(answers)
+    })
+}
+
 // function to start inquirer
-function getAnswers() {
-    return inquirer.prompt(questions).then(answer => {
+function getAnswers(answer) {
         switch(answer.addOrFinish) {
 
             // checks what choice was selected
@@ -75,7 +81,9 @@ function getAnswers() {
                         message: "What's the engineer's github username?",
                     },
                     nextAction
-                ])
+                ]).then(res => {
+                    getAnswers(res)
+                })
                 break
 
             case 'Add an intern':
@@ -89,13 +97,24 @@ function getAnswers() {
                         name: 'school',
                         message: "What's the intern's school?",
                     },
-                
                     nextAction
-                ])
+                ]).then(res => {
+                    getAnswers(res)
+                })
                 break
             case 'Finish building the team':
-                    console.log("File created!")
-        }
-    })
+                const writeFile = data => {
+                    fs.writeFile('./dist/index.html', data, err => {
+                        if (err) {
+                            console.log(err)
+                            return
+                        } else {
+                            console.log("File created!")
+                        }
+                    })
+                }
+                    
+            }
 }
-getAnswers()
+
+initialQuestion();
