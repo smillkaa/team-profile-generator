@@ -112,7 +112,16 @@ function getAnswers(answer) {
                         }
                     })
                 }
-                    writeToFile()
+                    initialQuestion()
+                    .then(getAnswers => {
+                        return generatePage(getAnswers)
+                    })
+                    .then(generatePage => {
+                        return writeToFile(generatePage)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
             }
 }
 
