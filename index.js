@@ -1,7 +1,13 @@
 // packages needed
+const Manager = require('./lib/Manager')
+const Intern = require('./lib/Intern')
+const Engineer = require('./lib/Engineer')
+
 const inquirer = require('inquirer')
 const fs = require('fs')
 const generatePage = require('./utils/generatePage')
+
+let teamArray = []
 
 // variables as objects to pass into inquirer
 const name =
@@ -59,8 +65,10 @@ const questions = [
 
 
 function initialQuestion() {
-    return inquirer.prompt(questions).then(answers => {
-        getAnswers(answers)
+    return inquirer.prompt(questions).then(res => {
+        const manager = new Manager(res.managerName, res.id, res.email, res.officeNum)
+        teamArray.push(manager)
+        getAnswers(res)
     })
 }
 
@@ -81,7 +89,10 @@ function getAnswers(answer) {
                     },
                     nextAction
                 ]).then(res => {
-                    getAnswers(res)
+                    const engineer = new Engineer(res.name, res.id, res.email, res.github)
+                    teamArray.push(engineer)
+                    getAnswers()
+
                 })
                 break
 
@@ -98,7 +109,9 @@ function getAnswers(answer) {
                     },
                     nextAction
                 ]).then(res => {
-                    getAnswers(res)
+                    const intern = new Intern(res.name, res.id, res.email, res.school)
+                    teamArray.push(intern)
+                    getAnswers()
                 })
                 break
             case 'Finish building the team':
@@ -112,16 +125,6 @@ function getAnswers(answer) {
                         }
                     })
                 }
-                    initialQuestion()
-                    .then(getAnswers => {
-                        return generatePage(getAnswers)
-                    })
-                    .then(generatePage => {
-                        return writeToFile(generatePage)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                    })
             }
 }
 

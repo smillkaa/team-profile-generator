@@ -1,52 +1,11 @@
-const cardContainer = document.querySelector('.card-container')
+function generateManagerCard() {
+    
+}
+function generateEngineerCard() {
 
-function generateCard(data) {
+}
+function generateInternCard() {
 
-    for (let i = 0; i < data.length; i++) {
-
-    const card = document.createElement('div')
-    card.classList.add('card')
-    cardContainer.appendChild(card)
-
-    const cardHeader = document.createElement('div')
-    cardHeader.classList.add('card-header')
-    card.appendChild(cardHeader)
-
-    const cardName = document.createElement('h1')
-    cardName.textContent = `${data.name}`
-    cardHeader.appendChild(cardName)
-
-    const cardTitle = document.createElement('h1')
-    cardTitle.textContent = `${data.title}`
-    cardHeader.appendChild(cardTitle)
-
-    const ulEl = document.createElement('ul')
-    ulEl.classList.add('list-group list-group-flush')
-    card.appendChild(ulEl)
-
-    const cardID = document.createElement('li')
-    cardID.classList.add('list-group-item')
-    cardID.textContent = `${data.ID}`
-    ulEl.appendChild(cardID)
-
-    const cardEmail = document.createElement('li')
-    cardEmail.classList.add('list-group-item')
-    cardEmail.textContent = `${data.email}`
-    ulEl.appendChild(cardEmail)
-
-        if (data.nextAction.choices[0]) {
-            const cardGithub = document.createElement('li')
-            cardGithub.classList.add('list-group-item')
-            cardGithub.textContent = `${data.github}`
-            ulEl.appendChild(cardGithub)
-        }
-        else if (data.nextAction.choices[1]) {
-            const cardSchool = document.createElement('li')
-            cardSchool.classList.add('list-group-item')
-            cardSchool.textContent = `${data.school}`
-            ulEl.appendChild(cardSchool)
-        }
-    }
 }
 
 function generatePage() {
@@ -70,16 +29,10 @@ function generatePage() {
         </header>
         <div class="card-container">
             <div class="card">
-                <div class="card-header">
-                    <h1 class="name">${data.managerName}</h1>
-                    <h2 class="title">Manager</h2>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">ID: ${data.id}</li>
-                    <li class="list-group-item">Email: ${data.email}</li>
-                    <li class="list-group-item">Office number: ${data.officeNum}</li>
-                </ul>
-                ${generateCard(data)}
+                ${generateManagerCard(data)}
+                ${generateEngineerCard(data)}
+                ${generateInternCard(data)}
+
             </div>
             
         </div>
